@@ -1,11 +1,14 @@
 import pygame
 import Items
 from data import *
+from snake import *
 import time
 
 pygame.init()
 screen = pygame.display.set_mode([field_size, field_size + 75])
-
+apple1 = Items.item(screen, "apple")
+stones = []
+snake = Snake(screen, apple1, stones, [6,6], [6,7], [6,8], 'up')
 pygame.display.set_caption("Hungry Python")
 board = pygame.image.load("images/Board.png").convert_alpha()
 plate = pygame.image.load("images/score_plate.png").convert_alpha()
@@ -36,6 +39,10 @@ while True:
 
     # Создание таблички
     screen.blit(plate, (field_size / 2 - 47, 25))
+    
+    apple1.create_new()
+    snake.draw()
+    snake.move()
     
     clock.tick(fps)
     pygame.display.flip()
