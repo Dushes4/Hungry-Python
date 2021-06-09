@@ -14,6 +14,7 @@ board = pygame.image.load("images/Board.png").convert_alpha()
 plate = pygame.image.load("images/score_plate.png").convert_alpha()
 snake = Snake(screen, apple1, stones, [6,6], [6,7], [6,8], 'up')
 clock = pygame.time.Clock()
+img_gameover = pygame.image.load('images/game_over.png').convert_alpha()
 font_score = pygame.font.SysFont('Arial', 26)
 gameover_score = pygame.font.SysFont('Arial', 50)
 fps = 5
@@ -59,7 +60,12 @@ while True:
         snake.move()
     else:
         if death_sound_times == 1:
+            death_sound = pygame.mixer.Sound("sfx/death_sound.ogg")
+            death_sound.play(0)
             death_sound_times = 0
+        screen.blit(img_gameover, (field_size/2 - 150, (field_size+75)/2 - 100 ))
+        render_gameover = gameover_score.render(str(snake.get_length() - 3), 1, SCORE_BROWN)
+        screen.blit(render_gameover, (field_size / 2 - len(str(snake.get_length() - 3))*12, (field_size+75)/2 + 30))
 
     if is_dynamic_speed and snake.get_length() > prev_len:
         fps += 0.4
