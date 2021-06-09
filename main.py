@@ -1,4 +1,5 @@
 import pygame
+import Items
 from data import *
 import time
 
