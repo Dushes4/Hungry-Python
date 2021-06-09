@@ -6,6 +6,8 @@ pygame.init()
 screen = pygame.display.set_mode([field_size, field_size + 75])
 
 pygame.display.set_caption("Hungry Python")
+board = pygame.image.load("images/Board.png").convert_alpha()
+plate = pygame.image.load("images/score_plate.png").convert_alpha()
 clock = pygame.time.Clock()
 fps = 5
 
@@ -27,6 +29,12 @@ while True:
                 pygame.draw.rect(screen, D_GREEN,
                                  [0 + column * BLOCK_SIZE, 75 + row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE])
 
+    # Создание забора
+    for column in range(block_num):
+        screen.blit(board, (0 + column * BLOCK_SIZE, 0))
 
+    # Создание таблички
+    screen.blit(plate, (field_size / 2 - 47, 25))
+    
     clock.tick(fps)
     pygame.display.flip()
