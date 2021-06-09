@@ -59,6 +59,8 @@ class Snake:
             self.move_old_tail()
         if self.FIFO[0][0] * BLOCK_SIZE == self.apple.x and self.FIFO[0][1] * BLOCK_SIZE + 75 == self.apple.y:
             self.apple.generate()
+            apple_sound = pygame.mixer.Sound("sfx/eating_sound.ogg")
+            apple_sound.play(0)
             if is_spawn_stones:
                 self.stones.append(Items.item(self.screen, "stone"))
         [stone.create_new() for stone in self.stones]
