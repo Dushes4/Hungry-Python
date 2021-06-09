@@ -28,6 +28,28 @@ class Snake:
     def move_old_tail(self):
         self.FIFO.pop()
 
+    def is_snake_on_tail(self):
+        return self.FIFO.count([self.FIFO[0][0], self.FIFO[0][1]]) > 1
+
+    def is_snake_out(self):
+        is_out = False
+        if not is_border_teleport:
+            if (self.FIFO[0][0] > block_num or self.FIFO[0][0] < 1 or self.FIFO[0][1] > block_num or self.FIFO[0][1] < 1):
+                is_out = True
+        return  is_out
+
+    def is_snake_on_rock(self):
+        is_on_rock = False
+        for stone in self.stones:
+            if self.FIFO[0][0]*BLOCK_SIZE == stone.x and self.FIFO[0][1]*BLOCK_SIZE+75 == stone.y:
+                is_on_rock = True
+                break
+        return is_on_rock
+
+    def is_alive(self):
+        is_alive = False if (self.is_snake_out() or self.is_snake_on_tail() or self.is_snake_on_rock()) else True
+        return is_alive
+
     def get_length(self):
         return len(self.FIFO)
 
